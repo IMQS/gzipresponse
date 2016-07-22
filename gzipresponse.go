@@ -20,6 +20,8 @@ func Write(w http.ResponseWriter, r *http.Request, data []byte) (int, error) {
 		w.Header().Set("Content-Type", http.DetectContentType(data))
 	}
 
+	w.Header().Set("Content-Encoding", "gzip")
+
 	zipper := gzip.NewWriter(w)
 	bytes, err := zipper.Write(data)
 	errClose := zipper.Close()
